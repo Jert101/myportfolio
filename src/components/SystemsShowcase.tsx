@@ -30,6 +30,7 @@ export default function SystemsShowcase() {
   const [isDragging, setIsDragging] = useState(false)
   const [dragStart, setDragStart] = useState({ x: 0, y: 0, scrollLeft: 0, scrollTop: 0 })
   const scrollRef = useRef<HTMLDivElement>(null)
+  const justOpened = useRef(false)
 
   const openLightbox = (file: string) => {
     const idx = automations.findIndex(a => a.file === file)
@@ -37,6 +38,8 @@ export default function SystemsShowcase() {
     setLightbox(file)
     setZoom(1)
     setImgSize({ w: 0, h: 0 })
+    justOpened.current = true
+    setTimeout(() => { justOpened.current = false }, 400)
   }
 
   const goTo = (dir: number) => {
@@ -48,7 +51,7 @@ export default function SystemsShowcase() {
     if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 }
   }
 
-  const close = () => { setLightbox(null); setZoom(1) }
+  const close = () => { if (justOpened.current) return; setLightbox(null); setZoom(1) }
 
   const fileName = (name: string) => name.replace(/\.(png|jpg|jpeg)$/i, '')
 
@@ -176,12 +179,9 @@ export default function SystemsShowcase() {
       </div>
       
       {lightbox && (
-        <div
-          className="fixed inset-0 z-50 flex flex-col bg-black/95 animate-fade-in select-none"
-          onClick={close}
-        >
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/95 select-none touch-none">
           {/* Top bar */}
-          <div className="relative z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800">
+          <div className="z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800 shrink-0">
             <div className="flex items-center gap-2 sm:gap-4">
               <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-accent transition-all" aria-label="Close">
                 <X className="w-4 sm:w-5 h-4 sm:h-5" />
@@ -208,8 +208,7 @@ export default function SystemsShowcase() {
           </div>
 
           {/* Image area */}
-          <div className="flex-1 relative min-h-0" onClick={(e) => e.stopPropagation()}>
-            {/* Prev / Next arrows */}
+          <div className="flex-1 flex items-center justify-center p-1 sm:p-4 min-h-0 relative">
             <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-2 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Previous">
               <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
             </button>
@@ -219,7 +218,7 @@ export default function SystemsShowcase() {
 
             <div
               ref={scrollRef}
-              className="absolute inset-0 overflow-auto"
+              className="w-full h-full overflow-auto flex items-center justify-center"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -232,32 +231,30 @@ export default function SystemsShowcase() {
               }}
               style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
             >
-              <div className="flex items-center justify-center min-h-full p-2 sm:p-4 lg:p-8">
-                <img
-                  src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
-                  alt={fileName(lightbox)}
-                  onLoad={(e) => {
-                    const img = e.currentTarget
-                    setImgSize({ w: img.naturalWidth, h: img.naturalHeight })
-                  }}
-                  onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
-                  draggable={false}
-                  className="rounded-lg shadow-2xl"
-                  style={{
-                    maxWidth: zoom > 1 ? 'none' : '100%',
-                    maxHeight: zoom > 1 ? 'none' : '100%',
-                    width: zoom > 1 && imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
-                    height: zoom > 1 && imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
-                    display: 'block',
-                    objectFit: zoom > 1 ? 'none' : 'contain',
-                  }}
-                />
-              </div>
+              <img
+                src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
+                alt={fileName(lightbox)}
+                onLoad={(e) => {
+                  const img = e.currentTarget
+                  setImgSize({ w: img.naturalWidth, h: img.naturalHeight })
+                }}
+                onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
+                draggable={false}
+                className="rounded-lg shadow-2xl"
+                style={{
+                  maxWidth: zoom > 1 ? 'none' : '100%',
+                  maxHeight: zoom > 1 ? 'none' : '100%',
+                  width: zoom > 1 && imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
+                  height: zoom > 1 && imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
+                  display: 'block',
+                  objectFit: 'contain',
+                }}
+              />
             </div>
           </div>
 
           {/* Bottom info bar */}
-          <div className="relative z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 backdrop-blur-sm border-t border-gray-800">
+          <div className="z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 backdrop-blur-sm border-t border-gray-800 shrink-0">
             <span className="text-[10px] sm:text-xs text-gray-500">
               <span className="sm:hidden">Ctrl+scroll zoom · ← → nav · Esc close</span>
               <span className="hidden sm:inline">Scroll to navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
