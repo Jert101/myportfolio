@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react'
+import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react'
 
 const automations = [
   { file: '4 day nurture.jpg', desc: 'Multi-day nurture sequence delivering course content and building trust over 4 days.' },
@@ -25,33 +25,20 @@ export default function SystemsShowcase() {
   const [isSectionHovered, setIsSectionHovered] = useState(false)
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
-  const [zoom, setZoom] = useState(1)
-  const [imgSize, setImgSize] = useState({ w: 0, h: 0 })
-  const [isDragging, setIsDragging] = useState(false)
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0, scrollLeft: 0, scrollTop: 0 })
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const justOpened = useRef(false)
 
   const openLightbox = (file: string) => {
     const idx = automations.findIndex(a => a.file === file)
     setCurrentIndex(idx)
     setLightbox(file)
-    setZoom(1)
-    setImgSize({ w: 0, h: 0 })
-    justOpened.current = true
-    setTimeout(() => { justOpened.current = false }, 400)
   }
 
   const goTo = (dir: number) => {
     const next = (currentIndex + dir + automations.length) % automations.length
     setCurrentIndex(next)
     setLightbox(automations[next].file)
-    setZoom(1)
-    setImgSize({ w: 0, h: 0 })
-    if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 }
   }
 
-  const close = () => { if (justOpened.current) return; setLightbox(null); setZoom(1) }
+  const close = () => setLightbox(null)
 
   const fileName = (name: string) => name.replace(/\.(png|jpg|jpeg)$/i, '')
 
@@ -61,37 +48,11 @@ export default function SystemsShowcase() {
       if (e.key === 'Escape') close()
       if (e.key === 'ArrowLeft') goTo(-1)
       if (e.key === 'ArrowRight') goTo(1)
-      if (e.key === '+' || e.key === '=') setZoom(z => Math.min(4, z + 0.25))
-      if (e.key === '-') setZoom(z => Math.max(1, z - 0.25))
-      if (e.key === '0') setZoom(1)
     }
     window.addEventListener('keydown', handler)
     document.body.style.overflow = 'hidden'
     return () => { window.removeEventListener('keydown', handler); document.body.style.overflow = '' }
   }, [lightbox, currentIndex])
-
-  const handleMouseDown = useCallback((e: React.MouseEvent) => {
-    if (!scrollRef.current || zoom <= 1) return
-    setIsDragging(true)
-    setDragStart({
-      x: e.clientX,
-      y: e.clientY,
-      scrollLeft: scrollRef.current.scrollLeft,
-      scrollTop: scrollRef.current.scrollTop,
-    })
-  }, [zoom])
-
-  const handleMouseMove = useCallback((e: React.MouseEvent) => {
-    if (!isDragging || !scrollRef.current) return
-    const dx = e.clientX - dragStart.x
-    const dy = e.clientY - dragStart.y
-    scrollRef.current.scrollLeft = dragStart.scrollLeft - dx
-    scrollRef.current.scrollTop = dragStart.scrollTop - dy
-  }, [isDragging, dragStart])
-
-  const handleMouseUp = useCallback(() => {
-    setIsDragging(false)
-  }, [])
 
   return (
     <section id="systems" className="section-padding bg-secondary">
@@ -179,86 +140,39 @@ export default function SystemsShowcase() {
       </div>
       
       {lightbox && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-black/95 select-none touch-none">
-          {/* Top bar */}
-          <div className="z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 border-b border-gray-800 shrink-0">
-            <div className="flex items-center gap-2 sm:gap-4">
-              <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all" aria-label="Close">
-                <X className="w-4 sm:w-5 h-4 sm:h-5" />
-              </button>
-              <span className="text-xs sm:text-sm text-gray-300 hidden sm:inline">{fileName(lightbox)}</span>
-            </div>
-            <div className="flex items-center gap-2 sm:gap-3">
-              <span className="text-[10px] sm:text-xs text-gray-500 tabular-nums">{currentIndex + 1} / {automations.length}</span>
-              <div className="flex items-center gap-0.5 sm:gap-1 bg-gray-900 rounded-xl border border-gray-800 p-0.5 sm:p-1">
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom out">
-                  <ZoomOut className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
-                </button>
-                <span className="text-xs sm:text-sm text-gray-300 min-w-[40px] sm:min-w-[44px] text-center tabular-nums font-medium">{Math.round(zoom * 100)}%</span>
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom in">
-                  <ZoomIn className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
-                </button>
-                {zoom !== 1 && (
-                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 } }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-all" aria-label="Reset zoom">
-                    <RotateCcw className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
-                  </button>
-                )}
-              </div>
-            </div>
+        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 sm:p-8">
+          {/* Close button */}
+          <button onClick={close} className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Close">
+            <X className="w-5 h-5" />
+          </button>
+
+          {/* Prev arrow */}
+          <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+
+          {/* Next arrow */}
+          <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
+            <ChevronRight className="w-5 h-5" />
+          </button>
+
+          {/* Counter */}
+          <div className="absolute top-4 left-4 z-10 text-xs text-white/60 font-mono">
+            {currentIndex + 1} / {automations.length}
           </div>
 
-          {/* Image area - fills remaining space reliably via flex-1 + relative */}
-          <div className="flex-1 relative min-h-0">
-            {/* Nav arrows */}
-            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
-              <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
-            </button>
-            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
-              <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
-            </button>
-
-            {/* Scroll container - fills parent via absolute inset-0 (100% reliable) */}
-            <div
-              ref={scrollRef}
-              className="absolute inset-0 overflow-auto flex items-center justify-center"
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
-              onWheel={(e) => {
-                if (!e.ctrlKey) return
-                e.preventDefault()
-                setZoom(z => Math.max(1, Math.min(4, z + (e.deltaY > 0 ? -0.25 : 0.25))))
-              }}
-              style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
-            >
-              <img
-                src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
-                alt={fileName(lightbox)}
-                onLoad={(e) => {
-                  const img = e.currentTarget
-                  setImgSize({ w: img.naturalWidth, h: img.naturalHeight })
-                }}
-                onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
-                draggable={false}
-                className="rounded-lg shadow-2xl"
-                style={{
-                  maxWidth: zoom > 1 ? 'none' : '100%',
-                  maxHeight: zoom > 1 ? 'none' : '100%',
-                  width: zoom > 1 && imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
-                  height: zoom > 1 && imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
-                  display: 'block',
-                }}
-              />
+          {/* Image + caption */}
+          <div className="flex flex-col items-center gap-4 max-w-full max-h-full">
+            <img
+              src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
+              alt={fileName(lightbox)}
+              onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
+              className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
+            />
+            <div className="text-center">
+              <h3 className="text-lg font-semibold text-white">{fileName(lightbox)}</h3>
+              <p className="text-sm text-white/60 mt-1 max-w-lg">{automations[currentIndex]?.desc}</p>
             </div>
-          </div>
-
-          {/* Bottom info bar */}
-          <div className="z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 border-t border-gray-800 shrink-0">
-            <span className="text-[10px] sm:text-xs text-gray-500">
-              <span className="sm:hidden">Ctrl+scroll zoom · ← → nav · Esc close</span>
-              <span className="hidden sm:inline">Scroll to navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
-            </span>
           </div>
         </div>
       )}
