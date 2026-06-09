@@ -142,36 +142,40 @@ export default function SystemsShowcase() {
       {lightbox && (
         <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 sm:p-8">
           {/* Close button */}
-          <button onClick={close} className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Close">
+          <button onClick={close} className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Close">
             <X className="w-5 h-5" />
           </button>
 
           {/* Prev arrow */}
-          <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
+          <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
             <ChevronLeft className="w-5 h-5" />
           </button>
 
           {/* Next arrow */}
-          <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-black/60 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
+          <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
             <ChevronRight className="w-5 h-5" />
           </button>
 
           {/* Counter */}
-          <div className="absolute top-4 left-4 z-10 text-xs text-white/60 font-mono">
+          <div className="absolute top-4 left-4 z-10 text-xs text-white/50 font-mono">
             {currentIndex + 1} / {automations.length}
           </div>
 
           {/* Image + caption */}
-          <div className="flex flex-col items-center gap-4 max-w-full max-h-full">
-            <img
-              src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
-              alt={fileName(lightbox)}
-              onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
-              className="max-w-full max-h-[75vh] w-auto h-auto object-contain rounded-lg shadow-2xl"
-            />
-            <div className="text-center">
-              <h3 className="text-lg font-semibold text-white">{fileName(lightbox)}</h3>
-              <p className="text-sm text-white/60 mt-1 max-w-lg">{automations[currentIndex]?.desc}</p>
+          <div className="flex flex-col items-center gap-3 w-full max-w-5xl">
+            <div className="relative w-full h-[55vh] sm:h-[65vh]">
+              <Image
+                src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
+                alt={fileName(lightbox)}
+                fill
+                sizes="100vw"
+                className="object-contain"
+                priority
+              />
+            </div>
+            <div className="text-center shrink-0">
+              <h3 className="text-base sm:text-lg font-semibold text-white">{fileName(lightbox)}</h3>
+              <p className="text-xs sm:text-sm text-white/50 mt-1 max-w-lg">{automations[currentIndex]?.desc}</p>
             </div>
           </div>
         </div>
