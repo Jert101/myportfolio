@@ -181,9 +181,9 @@ export default function SystemsShowcase() {
       {lightbox && (
         <div className="fixed inset-0 z-50 flex flex-col bg-black/95 select-none touch-none">
           {/* Top bar */}
-          <div className="z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800 shrink-0">
+          <div className="z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 border-b border-gray-800 shrink-0">
             <div className="flex items-center gap-2 sm:gap-4">
-              <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-accent transition-all" aria-label="Close">
+              <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all" aria-label="Close">
                 <X className="w-4 sm:w-5 h-4 sm:h-5" />
               </button>
               <span className="text-xs sm:text-sm text-gray-300 hidden sm:inline">{fileName(lightbox)}</span>
@@ -191,15 +191,15 @@ export default function SystemsShowcase() {
             <div className="flex items-center gap-2 sm:gap-3">
               <span className="text-[10px] sm:text-xs text-gray-500 tabular-nums">{currentIndex + 1} / {automations.length}</span>
               <div className="flex items-center gap-0.5 sm:gap-1 bg-gray-900 rounded-xl border border-gray-800 p-0.5 sm:p-1">
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom out">
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom out">
                   <ZoomOut className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                 </button>
                 <span className="text-xs sm:text-sm text-gray-300 min-w-[40px] sm:min-w-[44px] text-center tabular-nums font-medium">{Math.round(zoom * 100)}%</span>
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom in">
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom in">
                   <ZoomIn className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                 </button>
                 {zoom !== 1 && (
-                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 } }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-accent transition-all" aria-label="Reset zoom">
+                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 } }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-all" aria-label="Reset zoom">
                     <RotateCcw className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
                   </button>
                 )}
@@ -207,18 +207,20 @@ export default function SystemsShowcase() {
             </div>
           </div>
 
-          {/* Image area */}
-          <div className="flex-1 flex items-center justify-center p-1 sm:p-4 min-h-0 relative">
-            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-2 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Previous">
+          {/* Image area - fills remaining space reliably via flex-1 + relative */}
+          <div className="flex-1 relative min-h-0">
+            {/* Nav arrows */}
+            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
               <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
             </button>
-            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-1 sm:right-2 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Next">
+            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
               <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
             </button>
 
+            {/* Scroll container - fills parent via absolute inset-0 (100% reliable) */}
             <div
               ref={scrollRef}
-              className="w-full h-full overflow-auto flex items-center justify-center"
+              className="absolute inset-0 overflow-auto flex items-center justify-center"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -226,8 +228,7 @@ export default function SystemsShowcase() {
               onWheel={(e) => {
                 if (!e.ctrlKey) return
                 e.preventDefault()
-                const dir = e.deltaY > 0 ? -0.25 : 0.25
-                setZoom(z => Math.max(1, Math.min(4, z + dir)))
+                setZoom(z => Math.max(1, Math.min(4, z + (e.deltaY > 0 ? -0.25 : 0.25))))
               }}
               style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
             >
@@ -247,14 +248,13 @@ export default function SystemsShowcase() {
                   width: zoom > 1 && imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
                   height: zoom > 1 && imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
                   display: 'block',
-                  objectFit: 'contain',
                 }}
               />
             </div>
           </div>
 
           {/* Bottom info bar */}
-          <div className="z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 backdrop-blur-sm border-t border-gray-800 shrink-0">
+          <div className="z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 border-t border-gray-800 shrink-0">
             <span className="text-[10px] sm:text-xs text-gray-500">
               <span className="sm:hidden">Ctrl+scroll zoom · ← → nav · Esc close</span>
               <span className="hidden sm:inline">Scroll to navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
