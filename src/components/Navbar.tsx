@@ -50,10 +50,7 @@ export default function Navbar() {
       <nav className="container-custom">
         <div className="flex items-center justify-between h-16 lg:h-20">
           <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-9 h-9 rounded-lg bg-primary flex items-center justify-center text-accent font-bold text-base group-hover:scale-105 transition-transform">
-              G
-            </div>
-            <span className="text-lg font-bold text-accent hidden sm:inline">GHL Specialist</span>
+            <span className="text-lg font-bold text-accent">GHL Specialist</span>
           </a>
           
           <div className="hidden lg:flex items-center gap-8">

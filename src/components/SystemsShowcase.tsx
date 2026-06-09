@@ -119,10 +119,10 @@ export default function SystemsShowcase() {
                 onMouseEnter={() => setHoveredCard(item.file)}
                 onClick={() => openLightbox(item.file)}
               >
-                <div className="relative h-48 -mx-6 -mt-6 mb-5 overflow-hidden">
+                <div className="relative h-44 sm:h-48 -mx-6 -mt-6 mb-5 overflow-hidden">
                   <Image
                     src={`${ASSETS_PATH}/${encodeURIComponent(item.file)}`}
-                    alt={item.file.replace('.png', '')}
+                    alt={fileName(item.file)}
                     fill
                     className={`object-cover transition-all duration-500 ${
                       isSectionHovered && !isHovered
@@ -157,7 +157,7 @@ export default function SystemsShowcase() {
                   </div>
                   <div>
                     <h3 className="text-base font-semibold text-accent mb-1.5 leading-tight">
-                      {item.file.replace('.png', '')}
+                      {fileName(item.file)}
                     </h3>
                     <p className="text-sm text-gray-400 leading-relaxed">{item.desc}</p>
                   </div>
@@ -181,26 +181,26 @@ export default function SystemsShowcase() {
           onClick={close}
         >
           {/* Top bar */}
-          <div className="relative z-20 flex items-center justify-between px-4 lg:px-8 py-3 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800">
-            <div className="flex items-center gap-4">
-              <button onClick={close} className="w-10 h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-accent transition-all" aria-label="Close">
-                <X className="w-5 h-5" />
+          <div className="relative z-20 flex items-center justify-between px-2 sm:px-4 lg:px-8 py-2 sm:py-3 bg-gray-950/80 backdrop-blur-sm border-b border-gray-800">
+            <div className="flex items-center gap-2 sm:gap-4">
+              <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-accent transition-all" aria-label="Close">
+                <X className="w-4 sm:w-5 h-4 sm:h-5" />
               </button>
-              <span className="text-sm text-gray-300 hidden sm:inline">{fileName(lightbox)}</span>
+              <span className="text-xs sm:text-sm text-gray-300 hidden sm:inline">{fileName(lightbox)}</span>
             </div>
-            <div className="flex items-center gap-3">
-              <span className="text-xs text-gray-500 tabular-nums">{currentIndex + 1} / {automations.length}</span>
-              <div className="flex items-center gap-1 bg-gray-900 rounded-xl border border-gray-800 p-1">
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom out">
-                  <ZoomOut className="w-4 h-4" />
+            <div className="flex items-center gap-2 sm:gap-3">
+              <span className="text-[10px] sm:text-xs text-gray-500 tabular-nums">{currentIndex + 1} / {automations.length}</span>
+              <div className="flex items-center gap-0.5 sm:gap-1 bg-gray-900 rounded-xl border border-gray-800 p-0.5 sm:p-1">
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom out">
+                  <ZoomOut className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                 </button>
-                <span className="text-sm text-gray-300 min-w-[44px] text-center tabular-nums font-medium">{Math.round(zoom * 100)}%</span>
-                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom in">
-                  <ZoomIn className="w-4 h-4" />
+                <span className="text-xs sm:text-sm text-gray-300 min-w-[40px] sm:min-w-[44px] text-center tabular-nums font-medium">{Math.round(zoom * 100)}%</span>
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-accent transition-all" aria-label="Zoom in">
+                  <ZoomIn className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                 </button>
                 {zoom !== 1 && (
-                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 } }} className="w-8 h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-accent transition-all" aria-label="Reset zoom">
-                    <RotateCcw className="w-3.5 h-3.5" />
+                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); if (scrollRef.current) { scrollRef.current.scrollTop = 0; scrollRef.current.scrollLeft = 0 } }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-accent transition-all" aria-label="Reset zoom">
+                    <RotateCcw className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
                   </button>
                 )}
               </div>
@@ -208,19 +208,18 @@ export default function SystemsShowcase() {
           </div>
 
           {/* Image area */}
-          <div className="flex-1 flex items-center justify-center relative min-h-0">
+          <div className="flex-1 relative min-h-0" onClick={(e) => e.stopPropagation()}>
             {/* Prev / Next arrows */}
-            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-2 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Previous">
-              <ChevronLeft className="w-6 h-6" />
+            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-2 lg:left-6 top-1/2 -translate-y-1/2 z-20 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Previous">
+              <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
             </button>
-            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-2 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-12 h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Next">
-              <ChevronRight className="w-6 h-6" />
+            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-1 sm:right-2 lg:right-6 top-1/2 -translate-y-1/2 z-20 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-gray-900/80 border border-gray-700 text-gray-300 hover:text-accent hover:bg-gray-800 transition-all opacity-60 hover:opacity-100" aria-label="Next">
+              <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
             </button>
 
             <div
               ref={scrollRef}
-              className="w-full h-full overflow-auto flex"
-              onClick={(e) => e.stopPropagation()}
+              className="absolute inset-0 overflow-auto"
               onMouseDown={handleMouseDown}
               onMouseMove={handleMouseMove}
               onMouseUp={handleMouseUp}
@@ -233,7 +232,7 @@ export default function SystemsShowcase() {
               }}
               style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
             >
-              <div className="m-auto flex items-center justify-center min-h-full min-w-full p-4 lg:p-8">
+              <div className="flex items-center justify-center min-h-full p-2 sm:p-4 lg:p-8">
                 <img
                   src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
                   alt={fileName(lightbox)}
@@ -241,13 +240,16 @@ export default function SystemsShowcase() {
                     const img = e.currentTarget
                     setImgSize({ w: img.naturalWidth, h: img.naturalHeight })
                   }}
+                  onError={(e) => console.error('Lightbox img load error:', e.currentTarget.src)}
                   draggable={false}
-                  className="transition-[width,height] duration-200 ease-out rounded-lg shadow-2xl"
+                  className="rounded-lg shadow-2xl"
                   style={{
-                    width: imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
-                    height: imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
-                    maxWidth: 'none',
+                    maxWidth: zoom > 1 ? 'none' : '100%',
+                    maxHeight: zoom > 1 ? 'none' : '100%',
+                    width: zoom > 1 && imgSize.w ? `${imgSize.w * zoom}px` : 'auto',
+                    height: zoom > 1 && imgSize.h ? `${imgSize.h * zoom}px` : 'auto',
                     display: 'block',
+                    objectFit: zoom > 1 ? 'none' : 'contain',
                   }}
                 />
               </div>
@@ -256,8 +258,9 @@ export default function SystemsShowcase() {
 
           {/* Bottom info bar */}
           <div className="relative z-20 flex items-center justify-center gap-4 px-4 lg:px-8 py-3 bg-gray-950/80 backdrop-blur-sm border-t border-gray-800">
-            <span className="text-xs text-gray-500">
-              Scroll to navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close
+            <span className="text-[10px] sm:text-xs text-gray-500">
+              <span className="sm:hidden">Ctrl+scroll zoom · ← → nav · Esc close</span>
+              <span className="hidden sm:inline">Scroll to navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
             </span>
           </div>
         </div>

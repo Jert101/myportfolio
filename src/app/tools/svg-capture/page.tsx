@@ -242,7 +242,7 @@ export default function SvgCaptureTool() {
                   <textarea
                     value={html}
                     onChange={(e) => { setHtml(e.target.value); setStatus('idle'); setSvgText(''); if (svgUrl) URL.revokeObjectURL(svgUrl); setSvgUrl('') }}
-                    className="w-full h-[420px] bg-gray-950 border border-gray-800 rounded-xl p-4 text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-light/50 focus:border-primary-light resize-none"
+                    className="w-full h-[250px] sm:h-[350px] lg:h-[420px] bg-gray-950 border border-gray-800 rounded-xl p-3 sm:p-4 text-sm font-mono text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary-light/50 focus:border-primary-light resize-none"
                     spellCheck={false}
                   />
                 </div>
@@ -260,7 +260,7 @@ export default function SvgCaptureTool() {
                       Refresh preview
                     </button>
                   </div>
-                  <div className="h-[420px] bg-white rounded-xl overflow-hidden border border-gray-800">
+                  <div className="h-[250px] sm:h-[350px] lg:h-[420px] bg-white rounded-xl overflow-hidden border border-gray-800">
                     <iframe
                       key={previewKey}
                       ref={previewRef}
@@ -274,26 +274,26 @@ export default function SvgCaptureTool() {
               </div>
 
               <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                <div className="flex gap-3">
+                <div className="flex flex-wrap gap-3 w-full sm:w-auto">
                   <button
                     onClick={captureAsSvg}
                     disabled={status === 'generating' || !html.trim()}
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                   >
-                    <ImageDown className="w-5 h-5 mr-2" aria-hidden="true" />
+                    <ImageDown className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" aria-hidden="true" />
                     {status === 'generating' ? 'Generating...' : 'Capture as SVG'}
                   </button>
                   {status === 'ready' && (
                     <>
-                      <button onClick={downloadSvg} className="btn-secondary">
-                        <Download className="w-5 h-5 mr-2" aria-hidden="true" />
+                      <button onClick={downloadSvg} className="btn-secondary text-sm sm:text-base">
+                        <Download className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" aria-hidden="true" />
                         Download SVG
                       </button>
-                      <button onClick={copySvg} className="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-gray-300 bg-gray-900 border border-gray-800 rounded-xl hover:border-primary-light/50 transition-all">
+                      <button onClick={copySvg} className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-medium text-gray-300 bg-gray-900 border border-gray-800 rounded-xl hover:border-primary-light/50 transition-all">
                         {copied ? (
-                          <><Check className="w-5 h-5 mr-2 text-green-500" />Copied!</>
+                          <><Check className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2 text-green-500" />Copied!</>
                         ) : (
-                          <><Copy className="w-5 h-5 mr-2" />Copy SVG</>
+                          <><Copy className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" />Copy SVG</>
                         )}
                       </button>
                     </>
@@ -314,9 +314,9 @@ export default function SvgCaptureTool() {
                 {!screenshotFile ? (
                   <div
                     onClick={() => fileInputRef.current?.click()}
-                    className="border-2 border-dashed border-gray-700 rounded-xl p-16 text-center cursor-pointer hover:border-primary-light/50 transition-all group"
+                    className="border-2 border-dashed border-gray-700 rounded-xl p-8 sm:p-16 text-center cursor-pointer hover:border-primary-light/50 transition-all group"
                   >
-                    <Upload className="w-12 h-12 mx-auto mb-4 text-gray-500 group-hover:text-primary-light transition-colors" aria-hidden="true" />
+                    <Upload className="w-8 sm:w-12 h-8 sm:h-12 mx-auto mb-3 sm:mb-4 text-gray-500 group-hover:text-primary-light transition-colors" aria-hidden="true" />
                     <p className="text-lg font-medium text-gray-300 mb-1">Upload a screenshot</p>
                     <p className="text-sm text-gray-500">PNG, JPG, or WebP — will be embedded inside an SVG</p>
                   </div>
@@ -326,7 +326,7 @@ export default function SvgCaptureTool() {
                       <span className="text-sm text-gray-300 truncate">{screenshotFile.name}</span>
                       <span className="text-xs text-gray-500">{screenshotFile.w} × {screenshotFile.h} px</span>
                     </div>
-                    <div className="p-4 bg-white flex items-center justify-center max-h-[420px] overflow-auto">
+                    <div className="p-2 sm:p-4 bg-white flex items-center justify-center max-h-[250px] sm:max-h-[420px] overflow-auto">
                       <img
                         src={screenshotFile.dataUrl}
                         alt="Screenshot preview"
@@ -353,26 +353,26 @@ export default function SvgCaptureTool() {
 
               {screenshotFile && (
                 <div className="flex flex-wrap items-center justify-between gap-4 mb-8">
-                  <div className="flex gap-3">
+                  <div className="flex flex-wrap gap-3 w-full sm:w-auto">
                     <button
                       onClick={captureScreenshotAsSvg}
                       disabled={status === 'generating'}
-                      className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed"
+                      className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                     >
-                      <ImageDown className="w-5 h-5 mr-2" aria-hidden="true" />
-                      {status === 'generating' ? 'Generating...' : 'Create SVG from Screenshot'}
+                      <ImageDown className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" aria-hidden="true" />
+                      {status === 'generating' ? 'Generating...' : 'Create SVG'}
                     </button>
                     {status === 'ready' && (
                       <>
-                        <button onClick={downloadSvg} className="btn-secondary">
-                          <Download className="w-5 h-5 mr-2" aria-hidden="true" />
+                        <button onClick={downloadSvg} className="btn-secondary text-sm sm:text-base">
+                          <Download className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" aria-hidden="true" />
                           Download SVG
                         </button>
-                        <button onClick={copySvg} className="inline-flex items-center justify-center px-5 py-3 text-sm font-medium text-gray-300 bg-gray-900 border border-gray-800 rounded-xl hover:border-primary-light/50 transition-all">
+                        <button onClick={copySvg} className="inline-flex items-center justify-center px-4 sm:px-5 py-2.5 sm:py-3 text-sm font-medium text-gray-300 bg-gray-900 border border-gray-800 rounded-xl hover:border-primary-light/50 transition-all">
                           {copied ? (
-                            <><Check className="w-5 h-5 mr-2 text-green-500" />Copied!</>
+                            <><Check className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2 text-green-500" />Copied!</>
                           ) : (
-                            <><Copy className="w-5 h-5 mr-2" />Copy SVG</>
+                            <><Copy className="w-4 sm:w-5 h-4 sm:h-5 mr-1.5 sm:mr-2" />Copy SVG</>
                           )}
                         </button>
                       </>

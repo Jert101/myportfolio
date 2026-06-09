@@ -8,14 +8,9 @@ export default function Footer() {
       <div className="container-custom py-12 lg:py-16">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 lg:gap-12">
           <div className="md:col-span-1">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-accent font-bold text-lg">
-                G
-              </div>
-              <div>
-                <h3 className="text-lg font-bold text-accent">GHL Specialist</h3>
-                <p className="text-xs text-gray-500">Building systems that convert</p>
-              </div>
+            <div className="mb-4">
+              <h3 className="text-lg font-bold text-accent">GHL Specialist</h3>
+              <p className="text-xs text-gray-500">Building systems that convert</p>
             </div>
             <p className="text-sm text-gray-400 leading-relaxed max-w-xs">
               High-converting funnels, smart automations, and CRM systems built on GoHighLevel to help businesses grow.

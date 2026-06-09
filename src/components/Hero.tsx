@@ -20,9 +20,9 @@ export default function Hero() {
       <style>{`@keyframes gridMove { 0% { transform: translate(0, 0); } 100% { transform: translate(60px, 60px); } }`}</style>
       
       <div className="relative z-10 container-custom">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          <div className="animate-slide-in-left">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/20 border border-primary/30 text-primary-light text-sm font-medium mb-6 animate-fade-in">
+        <div className="grid lg:grid-cols-2 gap-8 sm:gap-12 lg:gap-16 items-center">
+          <div className="animate-slide-in-left order-2 lg:order-1">
+            <div className="inline-flex items-center gap-2 px-3 sm:px-4 py-1.5 sm:py-2 rounded-full bg-primary/20 border border-primary/30 text-primary-light text-xs sm:text-sm font-medium mb-4 sm:mb-6 animate-fade-in">
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-light" />
@@ -30,20 +30,20 @@ export default function Hero() {
               GoHighLevel Specialist
             </div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 animate-slide-up animation-delay-100">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-slide-up animation-delay-100 text-balance">
               I Build High-Converting{' '}
               <span className="gradient-text">Funnels & Automations</span>{' '}
               Using GoHighLevel
             </h1>
             
-            <p className="text-lg sm:text-xl text-gray-300 mb-8 max-w-xl animate-slide-up animation-delay-200">
+            <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-xl animate-slide-up animation-delay-200">
               Helping businesses turn leads into booked calls with smart systems and automation
             </p>
             
-            <div className="flex flex-col sm:flex-row gap-4 animate-slide-up animation-delay-300">
+            <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-slide-up animation-delay-300">
               <a 
                 href="#case-studies"
-                className="btn-primary group"
+                className="btn-primary group text-center"
               >
                 View My Work
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
@@ -52,29 +52,29 @@ export default function Hero() {
                 href="https://calendly.com/jersoncatadman365/30min"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="btn-secondary"
+                className="btn-secondary text-center"
               >
                 Book a Call
               </a>
             </div>
             
-            <div className="mt-10 flex flex-wrap items-center gap-6 text-sm text-gray-400 animate-slide-up animation-delay-400">
+            <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm text-gray-400 animate-slide-up animation-delay-400">
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary-light flex-shrink-0" />
-                <span>Funnel Building & Optimization</span>
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
+                <span>Funnels & Optimization</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary-light flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
                 <span>Automation Workflows</span>
               </div>
               <div className="flex items-center gap-2">
-                <CheckCircle className="w-5 h-5 text-primary-light flex-shrink-0" />
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
                 <span>CRM Setup & Pipelines</span>
               </div>
             </div>
           </div>
           
-          <div className="relative animate-slide-in-right">
+          <div className="relative animate-slide-in-right order-1 lg:order-2 max-w-lg sm:max-w-xl lg:max-w-none mx-auto w-full">
             <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-800 shadow-2xl shadow-primary/10">
               <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-50" />
               <Image
@@ -83,37 +83,37 @@ export default function Hero() {
                 fill
                 className="object-cover"
                 priority
-                sizes="(max-width: 1024px) 100vw, 50vw"
+                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
               />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                <div className="text-center p-8">
-                  <div className="inline-flex items-center gap-3 px-6 py-3 rounded-lg bg-primary/30 backdrop-blur-sm border border-primary/30 mb-4">
-                    <span className="relative flex h-3 w-3">
+              <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-4">
+                <div className="text-center">
+                  <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-primary/30 backdrop-blur-sm border border-primary/30 mb-3 sm:mb-4">
+                    <span className="relative flex h-2 w-2 sm:h-3 sm:w-3">
                       <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75" />
-                      <span className="relative inline-flex rounded-full h-3 w-3 bg-primary-light" />
+                      <span className="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-primary-light" />
                     </span>
-                    <span className="text-primary-light font-medium">Live Funnel Dashboard</span>
+                    <span className="text-xs sm:text-sm text-primary-light font-medium">Live Funnel Dashboard</span>
                   </div>
-                  <p className="text-gray-400 text-sm">Opt-in → Thank You → Booking → Follow-up</p>
+                  <p className="text-gray-400 text-xs sm:text-sm">Opt-in → Thank You → Booking → Follow-up</p>
                 </div>
               </div>
             </div>
             
-            <div className="absolute -bottom-6 -right-6 lg:-bottom-8 lg:-right-8 animate-fade-in animation-delay-500">
-              <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-xl p-5 shadow-xl min-w-[200px]">
-                <div className="flex items-center gap-3 mb-3">
-                  <div className="w-3 h-3 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-sm font-medium text-gray-300">Active Campaigns</span>
+            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 lg:-bottom-8 lg:-right-8 animate-fade-in animation-delay-500">
+              <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-xl p-3 sm:p-5 shadow-xl min-w-[140px] sm:min-w-[200px]">
+                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
+                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500 animate-pulse" />
+                  <span className="text-xs sm:text-sm font-medium text-gray-300">Active Campaigns</span>
                 </div>
-                <div className="text-3xl font-bold text-accent">24</div>
-                <div className="text-xs text-primary-light mt-1">Running Automations</div>
+                <div className="text-2xl sm:text-3xl font-bold text-accent">24</div>
+                <div className="text-[10px] sm:text-xs text-primary-light mt-0.5 sm:mt-1">Running Automations</div>
               </div>
             </div>
           </div>
         </div>
       </div>
       
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
+      <div className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
         <a href="#services" className="text-gray-500 hover:text-primary-light transition-colors">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />

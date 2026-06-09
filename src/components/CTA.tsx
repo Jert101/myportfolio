@@ -27,19 +27,19 @@ export default function CTA() {
               href="https://calendly.com/jersoncatadman365/30min"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-semibold text-primary bg-accent rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-xl shadow-accent/20 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-primary bg-accent rounded-xl hover:bg-gray-100 transition-all duration-300 shadow-xl shadow-accent/20 group"
             >
-              <Calendar className="w-5 h-5" aria-hidden="true" />
+              <Calendar className="w-4 sm:w-5 h-4 sm:h-5" aria-hidden="true" />
               Book a Free Call
-              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+              <ArrowRight className="w-4 sm:w-5 h-4 sm:h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
             </a>
             <a
               href="https://wa.me/639061344847"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-semibold text-accent bg-transparent border-2 border-accent/40 rounded-xl hover:bg-accent/10 transition-all duration-300 group"
+              className="w-full sm:w-auto inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3.5 sm:py-4 text-sm sm:text-base font-semibold text-accent bg-transparent border-2 border-accent/40 rounded-xl hover:bg-accent/10 transition-all duration-300 group"
             >
-              <MessageSquare className="w-5 h-5" aria-hidden="true" />
+              <MessageSquare className="w-4 sm:w-5 h-4 sm:h-5" aria-hidden="true" />
               Send a Message
             </a>
           </div>
