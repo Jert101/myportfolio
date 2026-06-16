@@ -48,11 +48,11 @@ export default function Services() {
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-light text-sm font-medium mb-4">
-            What I Do
+            My Solution
           </span>
           <h2 className="section-title">Services That Drive Results</h2>
           <p className="section-subtitle mt-4 mx-auto">
-            End-to-end GoHighLevel implementation — from strategy to execution. Each service is designed to work together as a complete system.
+            End-to-end GoHighLevel implementation — from strategy to execution. Each service plugs into a complete system that captures, nurtures, and converts leads on autopilot.
           </p>
         </div>
         

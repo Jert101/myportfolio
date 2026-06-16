@@ -1,8 +1,8 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight } from 'lucide-react'
+import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react'
 
 const automations = [
   { file: '4 day nurture.jpg', desc: 'Multi-day nurture sequence delivering course content and building trust over 4 days.' },
@@ -20,27 +20,139 @@ const automations = [
 
 const ASSETS_PATH = '/new automation'
 
+function dist(a: React.Touch, b: React.Touch) {
+  return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY)
+}
+
 export default function SystemsShowcase() {
   const [hoveredCard, setHoveredCard] = useState<string | null>(null)
   const [isSectionHovered, setIsSectionHovered] = useState(false)
   const [lightbox, setLightbox] = useState<string | null>(null)
   const [currentIndex, setCurrentIndex] = useState(0)
+  const [zoom, setZoom] = useState(1)
+  const [naturalSize, setNaturalSize] = useState({ w: 0, h: 0 })
+  const [offset, setOffset] = useState({ x: 0, y: 0 })
+  const [isDragging, setIsDragging] = useState(false)
+  const dragRef = useRef({ startX: 0, startY: 0, startOffX: 0, startOffY: 0, moved: false })
+  const imgAreaRef = useRef<HTMLDivElement>(null)
+  const lastTapRef = useRef(0)
+  const pinchRef = useRef({ initialDist: 0, initialZoom: 1 })
+  const isPinching = useRef(false)
 
   const openLightbox = (file: string) => {
     const idx = automations.findIndex(a => a.file === file)
     setCurrentIndex(idx)
     setLightbox(file)
+    setZoom(1)
+    setNaturalSize({ w: 0, h: 0 })
+    setOffset({ x: 0, y: 0 })
   }
 
   const goTo = (dir: number) => {
     const next = (currentIndex + dir + automations.length) % automations.length
     setCurrentIndex(next)
     setLightbox(automations[next].file)
+    setZoom(1)
+    setNaturalSize({ w: 0, h: 0 })
+    setOffset({ x: 0, y: 0 })
   }
 
-  const close = () => setLightbox(null)
+  const close = () => { setLightbox(null); setZoom(1); setOffset({ x: 0, y: 0 }) }
 
   const fileName = (name: string) => name.replace(/\.(png|jpg|jpeg)$/i, '')
+
+  const clampOffset = (x: number, y: number) => {
+    if (!imgAreaRef.current || !naturalSize.w) return { x, y }
+    const vw = imgAreaRef.current.clientWidth
+    const vh = imgAreaRef.current.clientHeight
+    const iw = naturalSize.w * zoom
+    const ih = naturalSize.h * zoom
+    if (zoom <= 1) return { x: 0, y: 0 }
+    const maxX = Math.max(0, (iw - vw) / 2)
+    const maxY = Math.max(0, (ih - vh) / 2)
+    return { x: Math.max(-maxX, Math.min(maxX, x)), y: Math.max(-maxY, Math.min(maxY, y)) }
+  }
+
+  // Mouse drag (desktop)
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (zoom <= 1) return
+    e.preventDefault()
+    setIsDragging(true)
+    dragRef.current.startX = e.clientX
+    dragRef.current.startY = e.clientY
+    dragRef.current.startOffX = offset.x
+    dragRef.current.startOffY = offset.y
+    dragRef.current.moved = false
+  }
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return
+    const dx = e.clientX - dragRef.current.startX
+    const dy = e.clientY - dragRef.current.startY
+    if (Math.abs(dx) > 5 || Math.abs(dy) > 5) dragRef.current.moved = true
+    setOffset(clampOffset(dragRef.current.startOffX + dx, dragRef.current.startOffY + dy))
+  }
+
+  const handleMouseUp = () => {
+    setIsDragging(false)
+  }
+
+  // Touch drag & pinch (mobile)
+  const handleTouchStart = (e: React.TouchEvent) => {
+    if (e.touches.length === 2) {
+      isPinching.current = true
+      pinchRef.current.initialDist = dist(e.touches[0], e.touches[1])
+      pinchRef.current.initialZoom = zoom
+      return
+    }
+    if (e.touches.length === 1 && zoom > 1) {
+      const t = e.touches[0]
+      setIsDragging(true)
+      dragRef.current.startX = t.clientX
+      dragRef.current.startY = t.clientY
+      dragRef.current.startOffX = offset.x
+      dragRef.current.startOffY = offset.y
+      dragRef.current.moved = false
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    if (e.touches.length >= 2 && isPinching.current) {
+      e.preventDefault()
+      const d = dist(e.touches[0], e.touches[1])
+      const ratio = d / pinchRef.current.initialDist
+      const newZoom = Math.max(1, Math.min(4, pinchRef.current.initialZoom * ratio))
+      setZoom(newZoom)
+      return
+    }
+    if (e.touches.length === 1 && isDragging) {
+      const t = e.touches[0]
+      const dx = t.clientX - dragRef.current.startX
+      const dy = t.clientY - dragRef.current.startY
+      if (Math.abs(dx) > 5 || Math.abs(dy) > 5) dragRef.current.moved = true
+      setOffset(clampOffset(dragRef.current.startOffX + dx, dragRef.current.startOffY + dy))
+    }
+  }
+
+  const handleTouchEnd = () => {
+    setIsDragging(false)
+    isPinching.current = false
+  }
+
+  const handleImgAreaClick = () => {
+    if (dragRef.current.moved) return
+    const now = Date.now()
+    const diff = now - lastTapRef.current
+    lastTapRef.current = now
+    if (diff < 300 && diff > 0) {
+      if (zoom > 1) {
+        setZoom(1)
+        setOffset({ x: 0, y: 0 })
+      } else {
+        setZoom(2)
+      }
+    }
+  }
 
   useEffect(() => {
     if (!lightbox) return
@@ -48,20 +160,34 @@ export default function SystemsShowcase() {
       if (e.key === 'Escape') close()
       if (e.key === 'ArrowLeft') goTo(-1)
       if (e.key === 'ArrowRight') goTo(1)
+      if (e.key === '+' || e.key === '=') setZoom(z => Math.min(4, z + 0.25))
+      if (e.key === '-') setZoom(z => Math.max(1, z - 0.25))
+      if (e.key === '0') setZoom(1)
     }
     window.addEventListener('keydown', handler)
     document.body.style.overflow = 'hidden'
     return () => { window.removeEventListener('keydown', handler); document.body.style.overflow = '' }
   }, [lightbox, currentIndex])
 
+  useEffect(() => {
+    setOffset(clampOffset(offset.x, offset.y))
+  }, [zoom])
+
+  const handleImgLoad = (e: React.SyntheticEvent<HTMLImageElement>) => {
+    const img = e.currentTarget
+    if (img.naturalWidth && img.naturalHeight) {
+      setNaturalSize({ w: img.naturalWidth, h: img.naturalHeight })
+    }
+  }
+
   return (
     <section id="systems" className="section-padding bg-secondary">
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-light text-sm font-medium mb-4">
-            Automation Workflows
+            Portfolio
           </span>
-          <h2 className="section-title">My Automation Systems</h2>
+          <h2 className="section-title">Automation Systems I Have Built</h2>
           <p className="section-subtitle mt-4 mx-auto">
             Real automation workflows built in GoHighLevel — from lead capture and nurturing to payment processing and student onboarding.
           </p>
@@ -103,7 +229,7 @@ export default function SystemsShowcase() {
                     <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                       <div className="flex items-center gap-2 px-4 py-2 rounded-lg bg-accent/90 text-secondary text-sm font-medium">
                         <Maximize2 className="w-4 h-4" />
-                        Click to view
+                        Tap to view
                       </div>
                     </div>
                   )}
@@ -140,43 +266,95 @@ export default function SystemsShowcase() {
       </div>
       
       {lightbox && (
-        <div className="fixed inset-0 z-50 bg-black/95 flex items-center justify-center p-4 sm:p-8">
-          {/* Close button */}
-          <button onClick={close} className="absolute top-4 right-4 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Close">
-            <X className="w-5 h-5" />
-          </button>
-
-          {/* Prev arrow */}
-          <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
-            <ChevronLeft className="w-5 h-5" />
-          </button>
-
-          {/* Next arrow */}
-          <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
-            <ChevronRight className="w-5 h-5" />
-          </button>
-
-          {/* Counter */}
-          <div className="absolute top-4 left-4 z-10 text-xs text-white/50 font-mono">
-            {currentIndex + 1} / {automations.length}
+        <div className="fixed inset-0 z-50 flex flex-col bg-black/95 select-none">
+          {/* Top bar */}
+          <div className="z-20 flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 bg-gray-950/80 border-b border-gray-800 shrink-0">
+            <div className="flex items-center gap-2 sm:gap-4 min-w-0">
+              <button onClick={close} className="w-8 sm:w-10 h-8 sm:h-10 flex items-center justify-center rounded-xl hover:bg-gray-800 text-gray-400 hover:text-white transition-all shrink-0" aria-label="Close">
+                <X className="w-4 sm:w-5 h-4 sm:h-5" />
+              </button>
+              <span className="text-xs sm:text-sm text-gray-300 truncate">{fileName(lightbox)}</span>
+            </div>
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <span className="text-[10px] sm:text-xs text-gray-500 tabular-nums">{currentIndex + 1} / {automations.length}</span>
+              <div className="flex items-center gap-0.5 sm:gap-1 bg-gray-900 rounded-xl border border-gray-800 p-0.5 sm:p-1">
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.max(1, z - 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom out">
+                  <ZoomOut className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                </button>
+                <span className="text-xs sm:text-sm text-gray-300 min-w-[36px] sm:min-w-[44px] text-center tabular-nums font-medium">{Math.round(zoom * 100)}%</span>
+                <button onClick={(e) => { e.stopPropagation(); setZoom(z => Math.min(4, z + 0.25)) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-300 hover:text-white transition-all" aria-label="Zoom in">
+                  <ZoomIn className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
+                </button>
+                {zoom !== 1 && (
+                  <button onClick={(e) => { e.stopPropagation(); setZoom(1); setOffset({ x: 0, y: 0 }) }} className="w-7 sm:w-8 h-7 sm:h-8 flex items-center justify-center rounded-lg hover:bg-gray-700 text-gray-400 hover:text-white transition-all" aria-label="Reset zoom">
+                    <RotateCcw className="w-3 sm:w-3.5 h-3 sm:h-3.5" />
+                  </button>
+                )}
+              </div>
+            </div>
           </div>
 
-          {/* Image + caption */}
-          <div className="flex flex-col items-center gap-3 w-full max-w-5xl">
-            <div className="relative w-full h-[55vh] sm:h-[65vh]">
-              <Image
-                src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
-                alt={fileName(lightbox)}
-                fill
-                sizes="100vw"
-                className="object-contain"
-                priority
-              />
+          {/* Image area */}
+          <div ref={imgAreaRef} className="flex-1 relative min-h-0 overflow-hidden touch-none"
+            onWheel={(e) => { if (e.ctrlKey || e.metaKey) { e.preventDefault(); setZoom(z => Math.max(1, Math.min(4, z - e.deltaY * 0.005))) } }}
+            onClick={handleImgAreaClick}
+          >
+            {/* Nav arrows */}
+            <button onClick={(e) => { e.stopPropagation(); goTo(-1) }} className="absolute left-1 sm:left-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Previous">
+              <ChevronLeft className="w-5 sm:w-6 h-5 sm:h-6" />
+            </button>
+            <button onClick={(e) => { e.stopPropagation(); goTo(1) }} className="absolute right-1 sm:right-3 top-1/2 -translate-y-1/2 z-10 w-10 sm:w-12 h-10 sm:h-12 flex items-center justify-center rounded-full bg-black/50 text-white/80 hover:bg-white/20 hover:text-white transition-all" aria-label="Next">
+              <ChevronRight className="w-5 sm:w-6 h-5 sm:h-6" />
+            </button>
+
+            {/* Draggable / pannable image */}
+            <div
+              className="absolute inset-0 flex items-center justify-center"
+              style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
+              onMouseDown={handleMouseDown}
+              onMouseMove={handleMouseMove}
+              onMouseUp={handleMouseUp}
+              onMouseLeave={handleMouseUp}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
+              <div
+                className="relative"
+                style={
+                  zoom > 1 && naturalSize.w
+                    ? { width: naturalSize.w * zoom, height: naturalSize.h * zoom, transform: `translate(${offset.x}px, ${offset.y}px)` }
+                    : { maxWidth: '100%', maxHeight: 'calc(100dvh - 120px)', aspectRatio: naturalSize.w ? `${naturalSize.w} / ${naturalSize.h}` : '16/9', width: '100%' }
+                }
+              >
+                <Image
+                  src={`${ASSETS_PATH}/${encodeURIComponent(lightbox)}`}
+                  alt={fileName(lightbox)}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 80vw"
+                  className="object-contain pointer-events-none"
+                  priority
+                  draggable={false}
+                  onLoad={handleImgLoad}
+                />
+              </div>
             </div>
-            <div className="text-center shrink-0">
-              <h3 className="text-base sm:text-lg font-semibold text-white">{fileName(lightbox)}</h3>
-              <p className="text-xs sm:text-sm text-white/50 mt-1 max-w-lg">{automations[currentIndex]?.desc}</p>
-            </div>
+
+            {/* Caption at zoom=1 */}
+            {zoom === 1 && (
+              <div className="absolute bottom-3 left-1/2 -translate-x-1/2 z-10 text-center pointer-events-none">
+                <h3 className="text-sm sm:text-base font-semibold text-white drop-shadow-lg">{fileName(lightbox)}</h3>
+                <p className="text-xs text-white/60 mt-0.5 max-w-md drop-shadow-lg line-clamp-2">{automations[currentIndex]?.desc}</p>
+              </div>
+            )}
+          </div>
+
+          {/* Bottom info bar */}
+          <div className="z-20 flex items-center justify-center px-4 py-2 bg-gray-950/80 border-t border-gray-800 shrink-0">
+            <span className="text-[10px] sm:text-xs text-gray-500">
+              <span className="sm:hidden">Pinch to zoom · Drag to pan · Esc close</span>
+              <span className="hidden sm:inline">Drag to pan · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
+            </span>
           </div>
         </div>
       )}

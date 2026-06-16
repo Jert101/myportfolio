@@ -1,8 +1,10 @@
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
+import ProblemSection from '@/components/ProblemSection'
 import Services from '@/components/Services'
+import MidPageCTA from '@/components/MidPageCTA'
 import SystemsShowcase from '@/components/SystemsShowcase'
-import CaseStudies from '@/components/CaseStudies'
+import OfferSection from '@/components/OfferSection'
 import About from '@/components/About'
 import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
@@ -14,9 +16,11 @@ export default function Home() {
     <>
       <Navbar />
       <Hero />
-      <Reveal><Services /></Reveal>
+      <Reveal><ProblemSection /></Reveal>
+      <Reveal delay={100}><Services /></Reveal>
+      <MidPageCTA />
       <Reveal delay={100}><SystemsShowcase /></Reveal>
-      <Reveal delay={100}><CaseStudies /></Reveal>
+      <Reveal delay={100}><OfferSection /></Reveal>
       <Reveal><About /></Reveal>
       <Reveal delay={100}><CTA /></Reveal>
       <Footer />

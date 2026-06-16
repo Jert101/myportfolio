@@ -31,9 +31,9 @@ export default function Hero() {
             </div>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-slide-up animation-delay-100 text-balance">
-              I Build High-Converting{' '}
-              <span className="gradient-text">Funnels & Automations</span>{' '}
-              Using GoHighLevel
+              Turn More Leads Into{' '}
+              <span className="gradient-text">Paying Clients</span>{' '}
+              With High-Converting Funnels &amp; Automations
             </h1>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-xl animate-slide-up animation-delay-200">
@@ -42,10 +42,10 @@ export default function Hero() {
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-slide-up animation-delay-300">
               <a 
-                href="#case-studies"
+                href="#services"
                 className="btn-primary group text-center"
               >
-                View My Work
+                See How It Works
                 <ArrowRight className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
               </a>
               <a 
@@ -114,7 +114,7 @@ export default function Hero() {
       </div>
       
       <div className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2 animate-bounce z-10">
-        <a href="#services" className="text-gray-500 hover:text-primary-light transition-colors">
+        <a href="#problem" className="text-gray-500 hover:text-primary-light transition-colors">
           <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
           </svg>

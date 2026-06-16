@@ -53,7 +53,7 @@ export default function CaseStudies() {
       <div className="container-custom">
         <div className="text-center max-w-3xl mx-auto mb-16">
           <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-light text-sm font-medium mb-4">
-            Results
+            Real Results
           </span>
           <h2 className="section-title">Case Studies</h2>
           <p className="section-subtitle mt-4 mx-auto">

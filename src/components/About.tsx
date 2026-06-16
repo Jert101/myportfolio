@@ -41,7 +41,7 @@ export default function About() {
             
             <div className="flex flex-wrap gap-4">
               <a href="#contact" className="btn-primary">Book a Free Call</a>
-              <a href="#case-studies" className="btn-secondary">View My Work</a>
+              <a href="#systems" className="btn-secondary">View My Work</a>
             </div>
           </div>
         </div>
