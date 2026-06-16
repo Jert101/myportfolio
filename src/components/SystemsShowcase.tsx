@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useEffect, useRef } from 'react'
+import { createPortal } from 'react-dom'
 import Image from 'next/image'
 import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react'
 
@@ -265,8 +266,10 @@ export default function SystemsShowcase() {
         </div>
       </div>
       
-      {lightbox && (
-        <div className="fixed inset-0 z-50 flex flex-col bg-black/95 select-none">
+      {lightbox && typeof window === 'object' && createPortal(
+        <div className="fixed inset-0 z-[100] flex flex-col bg-black/95 select-none" onClick={close}>
+          {/* Inner wrapper stops propagation so only backdrop clicks close */}
+          <div className="flex flex-col flex-1 min-h-0" onClick={(e) => e.stopPropagation()}>
           {/* Top bar */}
           <div className="z-20 flex items-center justify-between px-2 sm:px-4 py-2 sm:py-3 bg-gray-950/80 border-b border-gray-800 shrink-0">
             <div className="flex items-center gap-2 sm:gap-4 min-w-0">
@@ -311,10 +314,10 @@ export default function SystemsShowcase() {
             <div
               className="absolute inset-0 flex items-center justify-center"
               style={{ cursor: zoom > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
-              onMouseDown={handleMouseDown}
-              onMouseMove={handleMouseMove}
-              onMouseUp={handleMouseUp}
-              onMouseLeave={handleMouseUp}
+              onMouseDown={zoom > 1 ? handleMouseDown : undefined}
+              onMouseMove={zoom > 1 ? handleMouseMove : undefined}
+              onMouseUp={zoom > 1 ? handleMouseUp : undefined}
+              onMouseLeave={zoom > 1 ? handleMouseUp : undefined}
               onTouchStart={handleTouchStart}
               onTouchMove={handleTouchMove}
               onTouchEnd={handleTouchEnd}
@@ -356,7 +359,9 @@ export default function SystemsShowcase() {
               <span className="hidden sm:inline">Drag to pan · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Ctrl</kbd> + scroll to zoom · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">←</kbd> <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">→</kbd> navigate · <kbd className="px-1.5 py-0.5 rounded bg-gray-800 text-gray-400 text-[10px] font-mono">Esc</kbd> close</span>
             </span>
           </div>
-        </div>
+          </div>
+        </div>,
+        document.body
       )}
     </section>
   )
