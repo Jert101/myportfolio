@@ -1,68 +1,98 @@
 'use client'
 
-import { TrendingDown, Clock, Users, DollarSign } from 'lucide-react'
+import { XCircle, CheckCircle, ArrowRight } from 'lucide-react'
 
-const problems = [
-  {
-    icon: TrendingDown,
-    title: 'Low Conversion Rates',
-    description: 'You are spending money on leads but seeing low conversion rates. Most prospects fall through the cracks because there is no system to nurture them.',
-  },
-  {
-    icon: Clock,
-    title: 'Slow & Inconsistent Follow-Up',
-    description: 'Leads take days to get a response. Manual follow-up is inconsistent, and interested prospects go cold while you are juggling everything else.',
-  },
-  {
-    icon: Users,
-    title: 'Leaks in Your Sales Process',
-    description: 'Calls go unanswered after hours. Leads get lost between spreadsheets and email threads. You have no way to track where each prospect is in your pipeline.',
-  },
-  {
-    icon: DollarSign,
-    title: 'Wasted Ad Spend & Missed Revenue',
-    description: 'Without automated nurturing and retargeting, you are leaving money on the table. Lost leads could have become paying clients with the right follow-up system.',
-  },
+const beforePoints = [
+  'You run ads and get leads, but many never get a response.',
+  'You manually send emails or texts one at a time, and forget to follow up.',
+  'Your contacts are scattered across spreadsheets, email, and your phone.',
+  'You have no way of knowing which lead is hot and which is cold.',
+  'You lose sales because prospects go cold while waiting for a reply.',
+  'You are working inside your business instead of on your business.',
+]
+
+const afterPoints = [
+  'Every lead is automatically captured and organized inside one CRM.',
+  'Follow-ups happen automatically through email and SMS sequences.',
+  'Your pipeline shows exactly where every prospect is and what they need next.',
+  'Hot leads get routed to you instantly; cold leads get nurtured over time.',
+  'You reclaim hours each week by automating repetitive tasks.',
+  'You finally have a system that works while you sleep.',
 ]
 
 export default function ProblemSection() {
   return (
     <section id="problem" className="section-padding bg-gradient-to-b from-secondary via-gray-950 to-secondary">
       <div className="container-custom">
-        <div className="text-center max-w-3xl mx-auto mb-16">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-red-900/20 text-red-400 text-sm font-medium mb-4">
-            Common Challenges
+        <div className="text-center max-w-3xl mx-auto mb-12">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-light text-sm font-medium mb-4">
+            The Difference
           </span>
-          <h2 className="section-title">Sound Familiar?</h2>
-          <p className="section-subtitle mt-4 mx-auto">
-            Most businesses struggle with the same issues when it comes to turning leads into paying clients.
+          <h2 className="section-title">Why You Need Me</h2>
+        </div>
+
+        <div className="max-w-3xl mx-auto mb-12">
+          <p className="text-base sm:text-lg text-gray-300 leading-relaxed text-center">
+            Many businesses do a great job generating leads through ads, social media, and referrals.
+            But once those leads come in, the real challenge begins. Without automation and organized
+            systems, most prospects get lost, forgotten, or simply slip through the cracks. Valuable
+            time is wasted on repetitive manual tasks, and potential revenue goes untracked.
+            Now imagine your business running on autopilot where every lead is captured, every
+            follow-up happens on time, and your entire customer journey flows without you needing
+            to micromanage it.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-4xl mx-auto">
-          {problems.map((item, index) => (
-            <article
-              key={item.title}
-              className="card group animate-slide-up relative overflow-hidden"
-              style={{ animationDelay: `${index * 100}ms` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-red-900/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <div className="relative z-10 flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 rounded-xl bg-red-900/20 border border-red-900/30 flex items-center justify-center text-red-400 group-hover:scale-110 transition-transform duration-300">
-                  <item.icon className="w-6 h-6" aria-hidden="true" />
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8 max-w-5xl mx-auto">
+          {/* Before column */}
+          <div className="card animate-slide-up relative overflow-hidden border-red-900/20">
+            <div className="absolute inset-0 bg-gradient-to-b from-red-900/10 to-transparent opacity-40" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-red-900/30 flex items-center justify-center shrink-0">
+                  <XCircle className="w-5 h-5 text-red-400" />
                 </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-accent mb-2">{item.title}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{item.description}</p>
-                </div>
+                <h3 className="text-lg font-bold text-accent">Before</h3>
               </div>
-            </article>
-          ))}
+              <ul className="space-y-3">
+                {beforePoints.map((point, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-400">
+                    <span className="w-1.5 h-1.5 rounded-full bg-red-500/60 mt-1.5 shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* After column */}
+          <div className="card animate-slide-up relative overflow-hidden border-primary/20"
+            style={{ animationDelay: '150ms' }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-b from-primary/10 to-transparent opacity-40" />
+            <div className="relative z-10">
+              <div className="flex items-center gap-3 mb-5">
+                <div className="w-10 h-10 rounded-xl bg-primary/30 flex items-center justify-center shrink-0">
+                  <CheckCircle className="w-5 h-5 text-primary-light" />
+                </div>
+                <h3 className="text-lg font-bold text-accent">After</h3>
+              </div>
+              <ul className="space-y-3">
+                {afterPoints.map((point, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-gray-300">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary-light/60 mt-1.5 shrink-0" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="text-center mt-12">
           <a href="#services" className="btn-primary inline-flex items-center gap-2 group">
             See How I Fix These
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </a>
         </div>
       </div>

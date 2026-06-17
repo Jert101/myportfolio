@@ -27,17 +27,19 @@ export default function Hero() {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-primary-light" />
               </span>
-              GoHighLevel Specialist
+              GoHighLevel Specialist · Funnel Builder · Automation Specialist
             </div>
             
             <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 animate-slide-up animation-delay-100 text-balance">
-              Turn More Leads Into{' '}
-              <span className="gradient-text">Paying Clients</span>{' '}
-              With High-Converting Funnels &amp; Automations
+              Turn Your Business Into a{' '}
+              <span className="gradient-text">Lead-Generating Machine</span>{' '}
+               Automate, Nurture, Close.
             </h1>
             
             <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-xl animate-slide-up animation-delay-200">
-              Helping businesses turn leads into booked calls with smart systems and automation
+              Hi, I'm Jerson L. Catadman, I help business owners capture more leads, 
+              automate their follow-ups, organize their CRM, and create smoother 
+              customer journeys from first click to final sale.
             </p>
             
             <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 animate-slide-up animation-delay-300">
@@ -61,15 +63,19 @@ export default function Hero() {
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm text-gray-400 animate-slide-up animation-delay-400">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>Funnels & Optimization</span>
+                <span>Funnel Building</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>Automation Workflows</span>
+                <span>Workflow Automation</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>CRM Setup & Pipelines</span>
+                <span>CRM Pipeline Setup</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
+                <span>Email &amp; SMS Sequences</span>
               </div>
             </div>
           </div>

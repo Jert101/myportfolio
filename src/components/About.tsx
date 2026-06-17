@@ -31,12 +31,26 @@ export default function About() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-primary/20 text-primary-light text-sm font-medium mb-4">
               About Me
             </span>
-            <h2 className="section-title">Systems Builder &amp; GHL Specialist</h2>
+            <h2 className="section-title">Hey, I&apos;m Jerson!</h2>
             
-            <p className="text-gray-300 leading-relaxed mb-8 text-lg">
-              I&apos;m a Computer Science graduate and GoHighLevel specialist focused on building systems that convert. I help businesses automate their processes, capture leads, and turn them into paying clients using smart funnel and CRM systems.
+            <p className="text-gray-300 leading-relaxed mb-6 text-lg">
+              I&apos;m a GoHighLevel Specialist and Systems Virtual Assistant who helps businesses
+              organize their backend systems and automate their processes so they can focus
+              more on growth and less on manual work.
             </p>
-            
+
+            <p className="text-gray-400 leading-relaxed mb-6">
+              I help businesses build funnels, set up automations, organize CRM pipelines,
+              and create systems that capture and nurture leads from start to finish.
+              I have trained in GoHighLevel and built practice systems and portfolio projects
+              to strengthen my skills, so I know the platform inside and out.
+            </p>
+
+            <p className="text-gray-400 leading-relaxed mb-8">
+              My goal is simple: help you save time, respond to leads faster, and run
+              smoother operations through smart automation. Whether you are just starting
+              out or looking to clean up your existing setup, I am here to help.
+            </p>
 
             
             <div className="flex flex-wrap gap-4">

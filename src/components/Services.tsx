@@ -52,7 +52,7 @@ export default function Services() {
           </span>
           <h2 className="section-title">Services That Drive Results</h2>
           <p className="section-subtitle mt-4 mx-auto">
-            End-to-end GoHighLevel implementation — from strategy to execution. Each service plugs into a complete system that captures, nurtures, and converts leads on autopilot.
+            End-to-end GoHighLevel implementation, from strategy to execution. Each service plugs into a complete system that captures, nurtures, and converts leads on autopilot.
           </p>
         </div>
         

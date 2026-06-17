@@ -4,6 +4,7 @@ import ProblemSection from '@/components/ProblemSection'
 import Services from '@/components/Services'
 import MidPageCTA from '@/components/MidPageCTA'
 import SystemsShowcase from '@/components/SystemsShowcase'
+import ToolsSection from '@/components/ToolsSection'
 import OfferSection from '@/components/OfferSection'
 import About from '@/components/About'
 import CTA from '@/components/CTA'
@@ -20,6 +21,7 @@ export default function Home() {
       <Reveal delay={100}><Services /></Reveal>
       <MidPageCTA />
       <Reveal delay={100}><SystemsShowcase /></Reveal>
+      <ToolsSection />
       <Reveal delay={100}><OfferSection /></Reveal>
       <Reveal><About /></Reveal>
       <Reveal delay={100}><CTA /></Reveal>

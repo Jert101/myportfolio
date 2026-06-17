@@ -15,11 +15,17 @@ export default function CTA() {
           </span>
           
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-accent mb-6 text-balance">
-            Ready to automate your business and increase conversions?
+            Ready to Streamline Your Business Systems?
           </h2>
           
-          <p className="text-lg sm:text-xl text-accent/80 mb-10 max-w-2xl mx-auto">
-            Book a free strategy call. We&apos;ll map out your current system, identify bottlenecks, and create a plan to turn more leads into paying clients.
+          <p className="text-lg sm:text-xl text-accent/80 mb-6 max-w-2xl mx-auto">
+            I help businesses build organized GoHighLevel systems, from funnels and
+            automations to CRM pipelines, so you can focus on growing your business
+            while your backend works smoothly.
+          </p>
+
+          <p className="text-base text-accent/70 mb-10 max-w-xl mx-auto">
+            Let&apos;s connect and start building a system that works for you.
           </p>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
