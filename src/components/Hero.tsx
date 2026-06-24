@@ -63,19 +63,19 @@ export default function Hero() {
             <div className="mt-8 sm:mt-10 flex flex-wrap items-center gap-x-6 gap-y-3 text-xs sm:text-sm text-gray-400 animate-slide-up animation-delay-400">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>Funnel Building</span>
+                <span>Capture More Qualified Leads</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>Workflow Automation</span>
+                <span>Follow Up Automatically</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>CRM Pipeline Setup</span>
+                <span>Know Where Every Lead Stands</span>
               </div>
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-primary-light flex-shrink-0" />
-                <span>Email &amp; SMS Sequences</span>
+                <span>Nurture Leads on Autopilot</span>
               </div>
             </div>
           </div>

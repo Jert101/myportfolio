@@ -34,22 +34,20 @@ export default function About() {
             <h2 className="section-title">Hey, I&apos;m Jerson!</h2>
             
             <p className="text-gray-300 leading-relaxed mb-6 text-lg">
-              I&apos;m a GoHighLevel Specialist and Systems Virtual Assistant who helps businesses
-              organize their backend systems and automate their processes so they can focus
-              more on growth and less on manual work.
+              I specialize in building GoHighLevel systems that help businesses capture
+              leads, automate follow-ups, and organize their customer journey.
             </p>
 
             <p className="text-gray-400 leading-relaxed mb-6">
-              I help businesses build funnels, set up automations, organize CRM pipelines,
-              and create systems that capture and nurture leads from start to finish.
-              I have trained in GoHighLevel and built practice systems and portfolio projects
-              to strengthen my skills, so I know the platform inside and out.
+              My focus is creating practical systems that reduce manual work, improve
+              response times, and give business owners better visibility into their
+              sales process.
             </p>
 
             <p className="text-gray-400 leading-relaxed mb-8">
-              My goal is simple: help you save time, respond to leads faster, and run
-              smoother operations through smart automation. Whether you are just starting
-              out or looking to clean up your existing setup, I am here to help.
+              With a background in Computer Science and hands-on experience building
+              funnels, CRM pipelines, and automation workflows, I approach every
+              project with a systems-first mindset.
             </p>
 
             

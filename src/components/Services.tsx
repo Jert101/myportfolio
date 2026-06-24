@@ -12,32 +12,32 @@ import {
 const services = [
   {
     icon: LayoutDashboard,
-    title: 'Funnel Building',
+    title: 'Capture More Qualified Leads',
     description: 'High-converting landing pages, opt-in forms, thank you pages, and booking systems designed to capture and convert leads at every step.',
   },
   {
     icon: Zap,
-    title: 'Automation Systems',
+    title: 'Follow Up Automatically Without Manual Work',
     description: 'Multi-channel SMS and email workflows that nurture leads automatically, trigger based on behavior, and move prospects through your pipeline.',
   },
   {
     icon: Database,
-    title: 'CRM Setup',
+    title: 'Know Exactly Where Every Lead Stands',
     description: 'Custom pipelines, custom fields, tags, and tracking systems tailored to your sales process for complete visibility and control.',
   },
   {
     icon: FileText,
-    title: 'Forms & Surveys',
+    title: 'Qualify Leads Instantly',
     description: 'Dynamic forms and surveys with conditional logic, lead scoring, and seamless CRM integration for better qualification.',
   },
   {
     icon: Calendar,
-    title: 'Calendar Setup',
+    title: 'Never Miss a Booking Again',
     description: 'Automated booking systems with round-robin, collective, and class calendars, reminders, and no-show reduction workflows.',
   },
   {
     icon: Mail,
-    title: 'Email Builder',
+    title: 'Stay Top of Mind Automatically',
     description: 'Responsive email templates, broadcast campaigns, and drip sequences optimized for deliverability and engagement.',
   },
 ]
