@@ -6,17 +6,17 @@ import Image from 'next/image'
 import { Zap, ExternalLink, X, Maximize2, ChevronLeft, ChevronRight, ZoomIn, ZoomOut, RotateCcw } from 'lucide-react'
 
 const automations = [
-  { file: '4 day nurture.jpg', desc: 'Problem: Leads go cold without follow-up. Solution: Multi-day nurture sequence delivering course content and building trust over 4 days, with reply detection to flag engaged prospects.' },
-  { file: 'Abandoned Checkout Recovery.jpg', desc: 'Problem: Prospects leave mid-purchase. Solution: Automated recovery workflow triggered the moment a prospect abandons checkout, with SMS and email reminders and conditional retrigger logic.' },
-  { file: 'Auto Course Access Grant.png', desc: 'Problem: Manual access granting is slow and error-prone. Solution: Instant course access upon payment confirmation — no human intervention needed, with lifecycle tagging for segmentation.' },
-  { file: 'Behavior-Based Automation (Advanced Funnel Logic).jpg', desc: 'Problem: One-size-fits-all funnels miss opportunities. Solution: Advanced funnel logic that routes leads based on actions, page visits, and engagement — with conditional branching and multi-path workflows.' },
-  { file: 'Create Opportunity on Payment.png', desc: 'Problem: Payments and CRM are disconnected. Solution: Automatically creates a CRM opportunity when a payment is processed, keeping the sales pipeline in sync without manual entry.' },
-  { file: 'Payment Received Notification.jpg', desc: 'Problem: Team is left in the dark after purchases. Solution: Real-time multi-channel notifications (SMS + email) triggered on payment, with escalation rules for high-value transactions.' },
-  { file: 'Smart Conditional Follow-Up.jpg', desc: 'Problem: Static sequences ignore lead behavior. Solution: Follow-up sequences that adapt based on lead actions, tags, and pipeline stage — using conditional logic to send the right message at the right time.' },
-  { file: 'Student Activation System.jpg', desc: 'Problem: New students need manual onboarding. Solution: Onboarding workflow that activates new students with credentials, orientation materials, and welcome emails immediately after enrollment.' },
-  { file: 'Tag Paid Students.jpg', desc: 'Problem: No system to segment paying contacts. Solution: Automatically tags contacts who complete payment, enabling targeted upsell campaigns and clean list segmentation.' },
-  { file: 'Upsell Buyer Tagging + Segmentation.jpg', desc: 'Problem: Buyers receive generic messaging. Solution: Tags buyers based on purchase behavior, product type, and value — feeding into segmented nurture sequences for relevant upsells.' },
-  { file: 'Welcome Email.jpg', desc: 'Problem: New buyers feel abandoned post-purchase. Solution: Post-purchase welcome sequence delivering receipts, resources, and next steps — with delivery tracking and engagement alerts.' },
+  { file: '4 day nurture.jpg', desc: 'Leads go cold without follow-up. Multi-day nurture sequence delivering course content and building trust over 4 days, with reply detection to flag engaged prospects.' },
+  { file: 'Abandoned Checkout Recovery.jpg', desc: 'Prospects leave mid-purchase. Automated recovery workflow triggered the moment a prospect abandons checkout, with SMS and email reminders and conditional retrigger logic.' },
+  { file: 'Auto Course Access Grant.png', desc: 'Manual access granting is slow and error-prone. Instant course access upon payment confirmation — no human intervention needed, with lifecycle tagging for segmentation.' },
+  { file: 'Behavior-Based Automation (Advanced Funnel Logic).jpg', desc: 'One-size-fits-all funnels miss opportunities. Advanced funnel logic that routes leads based on actions, page visits, and engagement — with conditional branching and multi-path workflows.' },
+  { file: 'Create Opportunity on Payment.png', desc: 'Payments and CRM are disconnected. Automatically creates a CRM opportunity when a payment is processed, keeping the sales pipeline in sync without manual entry.' },
+  { file: 'Payment Received Notification.jpg', desc: 'Team is left in the dark after purchases. Real-time multi-channel notifications (SMS + email) triggered on payment, with escalation rules for high-value transactions.' },
+  { file: 'Smart Conditional Follow-Up.jpg', desc: 'Static sequences ignore lead behavior. Follow-up sequences that adapt based on lead actions, tags, and pipeline stage — using conditional logic to send the right message at the right time.' },
+  { file: 'Student Activation System.jpg', desc: 'New students need manual onboarding. Onboarding workflow that activates new students with credentials, orientation materials, and welcome emails immediately after enrollment.' },
+  { file: 'Tag Paid Students.jpg', desc: 'No system to segment paying contacts. Automatically tags contacts who complete payment, enabling targeted upsell campaigns and clean list segmentation.' },
+  { file: 'Upsell Buyer Tagging + Segmentation.jpg', desc: 'Buyers receive generic messaging. Tags buyers based on purchase behavior, product type, and value — feeding into segmented nurture sequences for relevant upsells.' },
+  { file: 'Welcome Email.jpg', desc: 'New buyers feel abandoned post-purchase. Post-purchase welcome sequence delivering receipts, resources, and next steps — with delivery tracking and engagement alerts.' },
 ]
 
 const ASSETS_PATH = '/new automation'
