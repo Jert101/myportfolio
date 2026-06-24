@@ -1,7 +1,6 @@
 'use client'
 
-import Image from 'next/image'
-import { ArrowRight, CheckCircle } from 'lucide-react'
+import { ArrowRight, CheckCircle, Target, Zap, TrendingUp } from 'lucide-react'
 
 export default function Hero() {
   return (
@@ -81,38 +80,54 @@ export default function Hero() {
           </div>
           
           <div className="relative animate-slide-in-right order-1 lg:order-2 max-w-lg sm:max-w-xl lg:max-w-none mx-auto w-full">
-            <div className="relative aspect-[4/3] rounded-2xl overflow-hidden bg-gradient-to-br from-gray-900 to-gray-800 border border-gray-800 shadow-2xl shadow-primary/10">
-              <div className="absolute inset-0 bg-gradient-to-t from-primary/20 to-transparent opacity-50" />
-              <Image
-                src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&h=600&fit=crop"
-                alt="GoHighLevel funnel dashboard mockup"
-                fill
-                className="object-cover"
-                priority
-                sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 50vw"
-              />
-              <div className="absolute inset-0 flex items-center justify-center pointer-events-none p-4">
-                <div className="text-center">
-                  <div className="inline-flex items-center gap-2 sm:gap-3 px-4 sm:px-6 py-2 sm:py-3 rounded-lg bg-primary/30 backdrop-blur-sm border border-primary/30 mb-3 sm:mb-4">
-                    <span className="relative flex h-2 w-2 sm:h-3 sm:w-3">
-                      <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-light opacity-75" />
-                      <span className="relative inline-flex rounded-full h-2 w-2 sm:h-3 sm:w-3 bg-primary-light" />
-                    </span>
-                    <span className="text-xs sm:text-sm text-primary-light font-medium">Live Funnel Dashboard</span>
+            <div className="rounded-2xl bg-gradient-to-br from-gray-900/80 to-gray-950/80 border border-gray-800 shadow-2xl shadow-primary/10 p-5 sm:p-7 lg:p-8">
+              <h3 className="text-base sm:text-lg font-semibold text-accent mb-5 sm:mb-6 text-center">
+                From Lead to Client — The System
+              </h3>
+
+              <div className="space-y-4 sm:space-y-5">
+                {/* Step 1 */}
+                <div className="flex items-start gap-3 sm:gap-4 group">
+                  <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary-light group-hover:scale-110 transition-transform">
+                    <Target className="w-4 sm:w-5 h-4 sm:h-5" />
                   </div>
-                  <p className="text-gray-400 text-xs sm:text-sm">Opt-in → Thank You → Booking → Follow-up</p>
+                  <div className="min-w-0">
+                    <p className="text-sm sm:text-base font-semibold text-accent">Capture</p>
+                    <p className="text-xs sm:text-sm text-gray-400 mt-0.5">Landing pages, forms, and booking systems that attract and capture qualified leads.</p>
+                  </div>
                 </div>
-              </div>
-            </div>
-            
-            <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 lg:-bottom-8 lg:-right-8 animate-fade-in animation-delay-500">
-              <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-xl p-3 sm:p-5 shadow-xl min-w-[140px] sm:min-w-[200px]">
-                <div className="flex items-center gap-2 sm:gap-3 mb-2 sm:mb-3">
-                  <div className="w-2 h-2 sm:w-3 sm:h-3 rounded-full bg-green-500 animate-pulse" />
-                  <span className="text-xs sm:text-sm font-medium text-gray-300">Active Campaigns</span>
+
+                {/* Connector line */}
+                <div className="flex justify-center">
+                  <div className="w-px h-4 sm:h-5 bg-gradient-to-b from-primary/40 to-transparent" />
                 </div>
-                <div className="text-2xl sm:text-3xl font-bold text-accent">24</div>
-                <div className="text-[10px] sm:text-xs text-primary-light mt-0.5 sm:mt-1">Running Automations</div>
+
+                {/* Step 2 */}
+                <div className="flex items-start gap-3 sm:gap-4 group">
+                  <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary-light group-hover:scale-110 transition-transform">
+                    <Zap className="w-4 sm:w-5 h-4 sm:h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm sm:text-base font-semibold text-accent">Automate</p>
+                    <p className="text-xs sm:text-sm text-gray-400 mt-0.5">SMS and email sequences, pipeline updates, and conditional workflows that run on autopilot.</p>
+                  </div>
+                </div>
+
+                {/* Connector line */}
+                <div className="flex justify-center">
+                  <div className="w-px h-4 sm:h-5 bg-gradient-to-b from-primary/40 to-transparent" />
+                </div>
+
+                {/* Step 3 */}
+                <div className="flex items-start gap-3 sm:gap-4 group">
+                  <div className="flex-shrink-0 w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-primary/20 border border-primary/30 flex items-center justify-center text-primary-light group-hover:scale-110 transition-transform">
+                    <TrendingUp className="w-4 sm:w-5 h-4 sm:h-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-sm sm:text-base font-semibold text-accent">Grow</p>
+                    <p className="text-xs sm:text-sm text-gray-400 mt-0.5">Nurture sequences, upsell triggers, and retention workflows that maximize customer lifetime value.</p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
